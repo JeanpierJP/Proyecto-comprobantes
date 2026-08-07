@@ -1,4 +1,4 @@
-﻿import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import * as XLSX from 'xlsx';
 import { Toaster, toast } from 'sonner';
 import {
@@ -15,6 +15,7 @@ import {
   SunIcon,
   XMarkIcon,
   XCircleIcon,
+  TrashIcon,
 } from '@heroicons/react/24/outline';
 import api from './api';
 import './App.css';
@@ -321,6 +322,22 @@ function App() {
     toast.success('Excel exportado');
   };
 
+  const clearAllRecords = async () => {
+    if (!window.confirm('¿Estás seguro de que deseas vaciar todos los registros? Esta acción no se puede deshacer.')) {
+      return;
+    }
+    
+    try {
+      await api.delete('/invoices');
+      toast.success('Todos los registros han sido eliminados');
+      fetchRecords();
+    } catch (error) {
+      toast.error('Error al vaciar los registros', {
+        description: error.response?.data?.detail || 'No se pudo completar la operación.',
+      });
+    }
+  };
+
   const startEdit = (record) => {
     setEditingId(record.id);
     setEditForm({ ...record });
@@ -529,10 +546,16 @@ function App() {
                 )}
               </div>
 
-              <button onClick={exportToExcel} className="export-button">
-                <ArrowDownTrayIcon className="h-4 w-4" />
-                Exportar Excel
-              </button>
+              <div className="flex flex-col sm:flex-row gap-2">
+                <button onClick={clearAllRecords} className="export-button" style={{ background: 'linear-gradient(90deg, #dc2626, #9f1239)' }}>
+                  <TrashIcon className="h-4 w-4" />
+                  Vaciar Registros
+                </button>
+                <button onClick={exportToExcel} className="export-button">
+                  <ArrowDownTrayIcon className="h-4 w-4" />
+                  Exportar Excel
+                </button>
+              </div>
             </div>
           </div>
 

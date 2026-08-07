@@ -11,7 +11,8 @@ import {
   PencilSquareIcon,
   CheckIcon,
   XMarkIcon,
-  EnvelopeIcon
+  EnvelopeIcon,
+  TrashIcon
 } from '@heroicons/react/24/outline';
 import api, { syncEmail } from './api';
 import './InvoicesDashboard.css';
@@ -138,6 +139,21 @@ function InvoicesDashboard() {
     XLSX.writeFile(wb, 'Reporte_Facturas_IA.xlsx');
   };
 
+  const clearAllRecords = async () => {
+    if (!window.confirm('¿Estás seguro de que deseas vaciar todos los registros? Esta acción no se puede deshacer.')) {
+      return;
+    }
+    try {
+      await api.delete('/invoices');
+      toast.success('Todos los registros han sido eliminados');
+      fetchInvoices();
+    } catch (error) {
+      toast.error('Error al vaciar los registros', {
+        description: error.response?.data?.detail || 'No se pudo completar la operación.',
+      });
+    }
+  };
+
   return (
     <div className="dashboard-container">
       <Toaster position="top-right" richColors />
@@ -198,15 +214,26 @@ function InvoicesDashboard() {
       {/* Table Container */}
       <div className="glass-card p-6">
         <div className="flex justify-between items-center mb-6">
-          <div className="search-container">
-            <MagnifyingGlassIcon className="search-icon" />
-            <input
-              type="text"
-              placeholder="Buscar por Empresa, RUC o Factura..."
-              className="search-input"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
+          <div className="flex items-center gap-4">
+            <div className="search-container">
+              <MagnifyingGlassIcon className="search-icon" />
+              <input
+                type="text"
+                placeholder="Buscar por Empresa, RUC o Factura..."
+                className="search-input"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+            </div>
+            
+            <button 
+              onClick={clearAllRecords} 
+              className="btn-primary text-sm" 
+              style={{ background: 'linear-gradient(90deg, #dc2626, #9f1239)', padding: '0.45rem 1rem', minWidth: 'auto', height: '100%' }}
+            >
+              <TrashIcon className="h-4 w-4" />
+              Vaciar Registros
+            </button>
           </div>
           <div className="flex items-center gap-2 text-slate-400 text-sm">
             <FunnelIcon className="h-4 w-4" />

@@ -1,75 +1,59 @@
-# Proyecto Facturas 📄
+# 📄 Proyecto Facturas - Frontend
 
-Sistema integral de gestión y extracción de datos de pdf de asistencias con inteligencia artificial. Una aplicación web moderna que permite procesar, almacenar y gestionar facturas de forma eficiente.
+Aplicación web moderna y dinámica diseñada para gestionar, procesar y visualizar facturas con una interfaz intuitiva y muy atractiva. Es la cara visual del Sistema Integral de Gestión y Extracción de Datos de Asistencias.
 
-## Descripción del Proyecto
+## 🚀 Características Principales
 
-Este proyecto es una solución completa para automatizar el procesamiento de facturas mediante:
+- **Dashboard Interactivo**: Visualización en tiempo real de facturas procesadas.
+- **Subida de Archivos con Drag & Drop**: Soporte para cargar documentos e imágenes (PDF, JPG, PNG).
+- **Diseño Premium**: Interfaz moderna implementando Glassmorphism, animaciones fluidas y soporte para modo oscuro.
+- **Exportación de Datos**: Posibilidad de descargar todos los registros directamente a un archivo Excel.
+- **Gestión de Registros**: Opciones para limpiar datos y actualizar estados de facturas procesadas.
 
-- **Extracción automática de datos** utilizando modelos de IA (Google Gemini)
-- **Interfaz intuitiva** construida con React y Vite
-- **Backend robusto** con FastAPI
-- **Base de datos en la nube** con Supabase
-- **Exportación a Excel** para análisis de datos
+## 🛠️ Tecnologías Utilizadas
 
-## Tecnologías Utilizadas
+- **React 19**: Framework de interfaz de usuario.
+- **Vite 7.2**: Servidor de desarrollo ultrarrápido y empaquetador.
+- **Tailwind CSS 3.4**: Framework CSS de utilidades para un diseño rápido y responsivo (con componentes personalizados).
+- **Axios**: Cliente HTTP para consumir la API del backend.
+- **XLSX**: Generación y manejo de archivos Excel en el navegador.
+- **Lucide React / Heroicons**: Iconografía moderna y limpia.
+- **Sonner**: Sistema de notificaciones (Toasts) amigables.
 
-### 🔧 Frontend
+## 📦 Estructura del Proyecto
 
-- **React 19** - Framework de UI
-- **Vite 7.2** - Bundler y servidor de desarrollo
-- **Tailwind CSS 3.4** - Framework de estilos
-- **Axios 1.13** - Cliente HTTP
-- **XLSX 0.18** - Manejo de archivos Excel
-- **Lucide React** - Iconografía
-- **Heroicons** - Iconos adicionales
-- **Sonner** - Sistema de notificaciones/toasts
-- **ESLint** - Linting de código
-- **PostCSS & Autoprefixer** - Procesamiento de estilos
-
-### 🚀 Backend
-
-- **FastAPI** - Framework web de alto rendimiento
-- **Uvicorn** - Servidor ASGI
-- **Supabase** - Base de datos PostgreSQL en la nube
-- **Google Generative AI** - Extracción de datos con IA
-- **Pydantic** - Validación de datos
-- **Python-dotenv** - Gestión de variables de entorno
-
-## Estructura del Proyecto
-
-```
-Proyecto-facturas/
-├── backend/              # API REST y lógica de negocio
-│   ├── main.py          # Punto de entrada de FastAPI
-│   ├── extractor.py     # Extracción de datos con IA
-│   ├── check-models.py  # Validación de modelos
-│   └── requirements.txt # Dependencias de Python
-└── frontend/            # Aplicación React
-    ├── src/
-    │   ├── App.jsx      # Componente principal
-    │   ├── api.js       # Cliente API
-    │   └── assets/      # Recursos estáticos
-    ├── package.json     # Dependencias de Node.js
-    ├── vite.config.js   # Configuración de Vite
-    └── tailwind.config.js # Configuración de Tailwind
+```text
+frontend/
+├── src/
+│   ├── components/      # Componentes reutilizables de UI
+│   ├── App.jsx          # Componente principal y enrutador
+│   ├── InvoicesDashboard.jsx # Vista principal de gestión de facturas
+│   ├── InvoicesDashboard.css # Estilos personalizados y animaciones
+│   └── main.jsx         # Punto de entrada de React
+├── package.json         # Dependencias y scripts
+├── vite.config.js       # Configuración de Vite
+└── tailwind.config.js   # Configuración y tema de Tailwind
 ```
 
-## Instalación y Uso
+## ⚙️ Instalación y Uso
 
-### Backend
-
+1. **Instalar dependencias**:
 ```bash
-cd backend
-pip install -r requirements.txt
-uvicorn main:app --reload
-```
-
-### Frontend
-
-```bash
-cd frontend
 npm install
+```
+
+2. **Configurar variables de entorno**:
+Crea un archivo `.env` en la raíz del frontend con la URL de tu backend (por ejemplo, en local o Render):
+```env
+VITE_API_URL=http://localhost:8000
+```
+
+3. **Ejecutar en entorno de desarrollo**:
+```bash
 npm run dev
-npm run build  # Para producción
+```
+
+4. **Construir para producción**:
+```bash
+npm run build
 ```
